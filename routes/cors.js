@@ -1,5 +1,5 @@
 const allowedOrigins = [
-    "https://smdashboard-tixooo-ec2b5662f2a102425c47790ccd84940098ce289abd2b.gitlab.io",
+    // "https://smdashboard-tixooo-ec2b5662f2a102425c47790ccd84940098ce289abd2b.gitlab.io",
     "http://localhost:8080",
 ];
 
