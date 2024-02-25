@@ -18,5 +18,10 @@
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.0",
     "nodemon": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-env": "^2.4.1"
   }
 }
