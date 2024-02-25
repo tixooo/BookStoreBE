@@ -1,13 +1,13 @@
 import express from 'express';
 import connectDB from "./db.js"
 import cors from 'cors';
-// import corsOptions from './routes/cors.js';
+import corsOptions from '../routes/cors.js';
 import auth from '../routes/auth.js';
 
 
 const app = express();
 const port = process.env.PORT || 3000;
-
+app.use(cors(corsOptions))
 app.use((req,res,next) => {
     if (req.url.endsWith('.css')) {
         res.setHeader('Content-Type', 'text/css');
