@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
             password: hashedPassword,
             email,
             fullName,
-            image
+            // image
         })
 
         await newUser.save()
