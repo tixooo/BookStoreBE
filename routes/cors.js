@@ -1,6 +1,6 @@
 const allowedOrigins = [
     "http://localhost:3000",
-    "http://localhost:5353"
+    "http://localhost:5500"
 ];
 
 const corsOptions = {
