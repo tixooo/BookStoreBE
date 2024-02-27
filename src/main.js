@@ -18,4 +18,5 @@ connectDB().then(() => {
         console.log(`Server is running on port ${port}`);
     })
     app.use('/auth', auth)
+    // app.use('/profile', profile)
 })

@@ -5,7 +5,7 @@ import User from '../models/User.js';
 const router = express.Router()
 
 router.post('/register', async (req, res) => {
-    const {username, password, email, fullName, image} = req.body;
+    const {username, password, email} = req.body;
     try {
         const existingUser = await User.findOne({username});
         if(existingUser) {
@@ -22,7 +22,7 @@ router.post('/register', async (req, res) => {
             username,
             password: hashedPassword,
             email,
-            fullName,
+            // fullName,
             // image
         })
 
