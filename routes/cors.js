@@ -1,5 +1,6 @@
 const allowedOrigins = [
-    "https://dimitarbh.github.io/Bookstore/"
+    "https://dimitarbh.github.io/Bookstore/",
+    "https://dimitarbh.github.io"
 ];
 
 const corsOptions = {
