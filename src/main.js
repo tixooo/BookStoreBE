@@ -1,7 +1,7 @@
 import express from 'express';
 import connectDB from "./db.js"
 import cors from 'cors';
-import corsOptions from '../routes/cors.js';
+// import corsOptions from '../routes/cors.js';
 import auth from '../routes/auth.js';
 import dotenv from 'dotenv';
 
@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 5353;
 app.use('/public', express.static('public'));
 app.use(express.json())
-app.use(cors(corsOptions))
+app.use(cors())
 
 connectDB().then(() => {
     console.log('Connected to MongoDB');
