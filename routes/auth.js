@@ -1,10 +1,13 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
-
+import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
+import authenticateToken from '../middleware/authToken.js';
+const secretKey = crypto.randomBytes(32).toString('hex');
 const router = express.Router()
 
-router.post('/register', async (req, res) => {
+router.post('/register', authenticateToken, async (req, res) => {
     const {username, password, email} = req.body;
     try {
         const existingUser = await User.findOne({username});
@@ -25,17 +28,20 @@ router.post('/register', async (req, res) => {
             // fullName,
             // image
         })
-
+        const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
         await newUser.save()
-
-        res.status(201).json({message: 'User created successfully'})
+        const userData = {
+            email: email,
+            username: username
+        }
+        res.status(201).json({message: 'User created successfully', token, user:  userData})
     } catch (error) {
         res.status(500).json({message: 'Server error'})
     }
 
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', authenticateToken, async (req, res) => {
     const {email, password} = req.body;
     try {
         const existingEmail = await User.findOne({email});
@@ -51,7 +57,8 @@ router.post('/login', async (req, res) => {
         const userData = {
             email: email,
         }
-        res.status(200).json({message: 'Login successful', user:  userData})
+        const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
+        res.status(200).json({message: 'Login successful', token, user:  userData})
     } catch (error) {
         console.error(error)
         res.status(500).json({message: 'Server error'})
