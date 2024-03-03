@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const {title, author, description, publisher, image, price, discountedPrice, topSelling} = req.body;
+    const {title, author, description, publisher, image, price, discountedPrice, topSelling, createdAt} = req.body;
     try {
         const newBook = new Book({
             title,
@@ -34,7 +34,8 @@ router.post('/', async (req, res) => {
             image,
             price,
             discountedPrice,
-            topSelling
+            topSelling,
+            createdAt
         })
         await newBook.save()
         res.status(201).json({message: 'Book created successfully'})
