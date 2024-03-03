@@ -53,7 +53,7 @@ router.post('/register', async (req, res) => {
 
 })
 
-router.post('/login', authenticateToken, async (req, res) => {
+router.post('/login', async (req, res) => {
 
     const {email, password} = req.body;
     try {
@@ -72,6 +72,17 @@ router.post('/login', authenticateToken, async (req, res) => {
         }
         const token = jwt.sign({ email }, secretKey, { expiresIn: '1h' });
         res.status(200).json({message: 'Login successful', token, user:  userData})
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({message: 'Server error'})
+    }
+})
+
+router.get('/profile', authenticateToken, async (req, res) => {
+
+    try {
+        const user = await User.findOne({email: req.user.email});
+        res.json(user)
     } catch (error) {
         console.error(error)
         res.status(500).json({message: 'Server error'})
