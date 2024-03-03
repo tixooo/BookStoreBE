@@ -19,7 +19,7 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
-router.post('/register', authenticateToken, async (req, res) => {
+router.post('/register', async (req, res) => {
     const {username, password, email} = req.body;
     try {
         const existingUser = await User.findOne({username});
