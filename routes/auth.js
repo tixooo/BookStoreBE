@@ -3,9 +3,21 @@ import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
-import authenticateToken from '../middleware/authToken.js';
 const secretKey = crypto.randomBytes(32).toString('hex');
 const router = express.Router()
+
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).send('Access Denied');
+
+    jwt.verify(token, secretKey, (err, user) => {
+        if (err) return res.status(403).send('Invalid Token');
+        req.user = user;
+        next();
+    });
+};
 
 router.post('/register', authenticateToken, async (req, res) => {
     const {username, password, email} = req.body;
@@ -42,6 +54,7 @@ router.post('/register', authenticateToken, async (req, res) => {
 })
 
 router.post('/login', authenticateToken, async (req, res) => {
+
     const {email, password} = req.body;
     try {
         const existingEmail = await User.findOne({email});
