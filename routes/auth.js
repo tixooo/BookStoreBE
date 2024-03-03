@@ -79,7 +79,6 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/profile', authenticateToken, async (req, res) => {
-
     try {
         const user = await User.findOne({email: req.user.email});
         res.json(user)

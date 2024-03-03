@@ -8,6 +8,7 @@ const bookSchema = new mongoose.Schema({
     image: {type: String, required: true},
     price: {type: Number, required: true},
     discountedPrice: {type: Number, required: false},
+    topSelling: {type: Boolean, required: false}
 })
 
 const Book = mongoose.model('Book', bookSchema, 'BookstoreBooks')
