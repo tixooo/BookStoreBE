@@ -9,7 +9,8 @@ const bookSchema = new mongoose.Schema({
     price: {type: Number, required: true},
     discountedPrice: {type: Number, required: false},
     topSelling: {type: Boolean, required: false},
-    createdAt: {type: Date, default: Date.now}
+    createdAt: {type: Date, default: Date.now},
+    featured: {type: Boolean, required: false}
 })
 
 const Book = mongoose.model('Book', bookSchema, 'BookstoreBooks')
