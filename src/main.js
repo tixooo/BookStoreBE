@@ -5,6 +5,8 @@ import cors from 'cors';
 import auth from '../routes/auth.js';
 import dotenv from 'dotenv';
 import books from '../routes/books.js';
+import news from '../routes/news.js';
+
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5353;
@@ -18,6 +20,6 @@ connectDB().then(() => {
         console.log(`Server is running on port ${port}`);
     })
     app.use('/auth', auth)
-    app.use('/', books)
-    // app.use('/profile', profile)
+    app.use('/news', news)
+    app.use('/books', books)
 })
