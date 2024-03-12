@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router()
 import News from '../models/News.js';
 
-router.get('/news', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const news = await News.find()
         res.json(news)
