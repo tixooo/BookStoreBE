@@ -21,5 +21,5 @@ connectDB().then(() => {
     })
     app.use('/auth', auth)
     app.use('/news', news)
-    app.use('/', books)
+    app.use('/books', books)
 })
