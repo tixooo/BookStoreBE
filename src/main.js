@@ -6,6 +6,7 @@ import auth from '../routes/auth.js';
 import dotenv from 'dotenv';
 import books from '../routes/books.js';
 import news from '../routes/news.js';
+import favorites from '../routes/favorites.js';
 
 dotenv.config();
 const app = express();
@@ -22,4 +23,5 @@ connectDB().then(() => {
     app.use('/auth', auth)
     app.use('/news', news)
     app.use('/books', books)
+    app.use('/favorites', favorites)
 })
