@@ -2,8 +2,7 @@ import express from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
-const secretKey = crypto.randomBytes(32).toString('hex');
+import { secretKey } from '../src/config.js'
 const router = express.Router()
 
 const authenticateToken = (req, res, next) => {
