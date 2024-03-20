@@ -1,9 +1,23 @@
 import express from 'express';
 import User from '../models/User.js';
+import authenticationToken from './auth.js'
 
 const router = express.Router();
+router.use(authenticationToken);
 
-router.post('/add', async (req, res) => {
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+
+    if (!token) return res.status(401).send('Access Denied');
+
+    jwt.verify(token, secretKey, (err, user) => {
+        if (err) return res.status(403).send('Invalid Token');
+        req.user = user;
+        next();
+    });
+};
+router.post('/add', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -16,7 +30,7 @@ router.post('/add', async (req, res) => {
 });
 
 
-router.post('/remove', async (req, res) => {
+router.post('/remove', authenticateToken,async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -29,7 +43,7 @@ router.post('/remove', async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const user = await User.findById(userId).populate('favoriteBooks');
