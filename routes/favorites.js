@@ -22,9 +22,9 @@ const authenticateToken = (req, res, next) => {
 router.post('/add', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
-        const bookId = req.body.bookId;
+
         await User.findByIdAndUpdate(userId, { $addToSet: { favoriteBooks: bookId } });
-        res.status(200).json({ message: 'Book added to favorites' });
+        res.status(200).json({User: req.body ,message: 'Book added to favorites' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });
