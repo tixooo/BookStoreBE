@@ -21,9 +21,7 @@ const authenticateToken = (req, res, next) => {
     });
 }
 
-router.use(authenticateToken);
-
-router.post('/add', async (req, res) => {
+router.post('/add', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -36,7 +34,7 @@ router.post('/add', async (req, res) => {
 });
 
 
-router.post('/remove',async (req, res) => {
+router.post('/remove', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -49,7 +47,7 @@ router.post('/remove',async (req, res) => {
 });
 
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
     try {
         const userId = req.user.id;
         const user = await User.findById(userId).populate('favoriteBooks');
