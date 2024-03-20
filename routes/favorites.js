@@ -1,7 +1,10 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
+import crypto from 'crypto';
 
+
+const secretKey = crypto.randomBytes(32).toString('hex');
 const router = express.Router();
 
 
