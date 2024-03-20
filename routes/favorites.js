@@ -1,9 +1,8 @@
 import express from 'express';
 import User from '../models/User.js';
-import authenticationToken from './auth.js'
 
 const router = express.Router();
-router.use(authenticationToken);
+
 
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers['authorization'];
@@ -16,8 +15,11 @@ const authenticateToken = (req, res, next) => {
         req.user = user;
         next();
     });
-};
-router.post('/add', authenticateToken, async (req, res) => {
+}
+
+router.use(authenticateToken);
+
+router.post('/add', async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -30,7 +32,7 @@ router.post('/add', authenticateToken, async (req, res) => {
 });
 
 
-router.post('/remove', authenticateToken,async (req, res) => {
+router.post('/remove',async (req, res) => {
     try {
         const userId = req.user.id;
         const bookId = req.body.bookId;
@@ -43,7 +45,7 @@ router.post('/remove', authenticateToken,async (req, res) => {
 });
 
 
-router.get('/', authenticateToken, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const userId = req.user.id;
         const user = await User.findById(userId).populate('favoriteBooks');
